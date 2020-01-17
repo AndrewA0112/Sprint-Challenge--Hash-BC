@@ -23,8 +23,12 @@ def proof_of_work(last_proof):
     start = timer()
 
     print("Searching for next proof")
-    proof = 0
-    #  TODO: Your code here
+    proof = random.randrange(-9223372036854775807, 9223372036854775807)
+    last = f'{last_proof}'.encode()
+    last_hash = hashlib.sha256(last).hexdigest()
+
+    while valid_proof(last_hash, proof) is False:
+        proof += random.randrange(-9223372036854775807, 9223372036854775807) + timer() # Tried without timer would take a while, timer() allows for it to always be going up in some way
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
@@ -39,8 +43,9 @@ def valid_proof(last_hash, proof):
     IE:  last_hash: ...AE9123456, new hash 123456E88...
     """
 
-    # TODO: Your code here!
-    pass
+    guess = f'{proof}'.encode()
+    hashed_guess = hashlib.sha256(guess).hexdigest()
+    return hashed_guess[:6] == last_hash[-6:]
 
 
 if __name__ == '__main__':

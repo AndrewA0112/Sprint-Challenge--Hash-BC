@@ -8,11 +8,12 @@ from hashtables import (HashTable,
 
 def get_indices_of_item_weights(weights, length, limit):
     ht = HashTable(16)
-
-    """
-    YOUR CODE HERE
-    """
-
+    
+    for i in range(len(weights)):
+        if hash_table_retrieve(ht,limit - weights[i]) is not None: # Checks ht if there is a key that has the remaning sum
+            return [i , hash_table_retrieve(ht, limit - weights[i])] # If limit is reach with the 2 keys, it gets return
+        hash_table_insert(ht, weights[i], i) # If the limit is not reached, insert new key/value for the next loop to reference
+    
     return None
 
 
